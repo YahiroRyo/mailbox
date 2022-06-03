@@ -12,8 +12,6 @@ return new class extends Migration
             $table->foreignId('user_id')->primary();
 
             $table->timestamp('created_at')->useCurrent();
-
-            $table->foreign('user_id')->references('user_id')->on('users');
         });
     }
 
