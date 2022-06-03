@@ -10,6 +10,7 @@ class MailRead extends Model
     use HasFactory;
 
     public const UPDATED_AT = null;
+    protected $table = 'mail_read';
     protected $primaryKey = 'mail_id';
     protected $fillable = [
         'mail_id',
