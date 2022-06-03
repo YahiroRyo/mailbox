@@ -14,8 +14,6 @@ return new class extends Migration
             $table->string('subject', 256);
             $table->text('body', 384000);
             $table->timestamp('created_at')->useCurrent();
-
-            $table->foreign('mail_id')->references('mail_id')->on('mails');
         });
     }
 
