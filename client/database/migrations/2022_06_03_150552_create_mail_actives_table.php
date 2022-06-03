@@ -12,8 +12,6 @@ return new class extends Migration
             $table->char('mail_id', 26)->primary();
 
             $table->timestamp('created_at')->useCurrent();
-
-            $table->foreign('mail_id')->references('mail_id')->on('mails');
         });
     }
 
