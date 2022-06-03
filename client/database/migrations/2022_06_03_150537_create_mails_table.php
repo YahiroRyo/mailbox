@@ -13,8 +13,6 @@ return new class extends Migration
 
             $table->foreignId('user_id');
             $table->timestamp('created_at')->useCurrent();
-
-            $table->foreign('user_id')->references('user_id')->on('users');
         });
     }
 
