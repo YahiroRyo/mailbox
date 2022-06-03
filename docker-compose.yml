@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+  mailbox-client:
+    build: ./client
+    container_name: mailbox-client
+    volumes:
+      - ./client:/var/www/html
+      - ./client/bin:/var/www/bin
+    tty: true
+    command: "sh -c 'bash /var/www/bin/init.sh && apache2-foreground'"
+    ports:
+      - "8080:80"
+    depends_on:
+      - mailbox-db
+
+  mailbox-db:
+    image: mysql:5.7
+    container_name: mailbox-db
+    volumes:
+      - ./database/mysql/mysql.conf:/etc/mysql/mysql.conf
+      - ./database/mysql/lib:/var/lib/mysql
+      - ./database/mysql/logs:/var/log/database
+    environment:
+      MYSQL_DATABASE: main
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_ROOT_PASSWORD: root
+      TZ: "Asia/Tokyo"
