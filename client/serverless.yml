@@ -1,0 +1,72 @@
+service: mailbox-client
+
+provider:
+  name: aws
+  region: ap-northeast-1
+  stage: dev
+  runtime: provided.al2
+  memorySize: 512
+  environment:
+    APP_STORAGE: '/tmp'
+
+custom:
+  defaultStage: dev
+  profiles:
+    dev: sls-itg
+    stg: sls-stg
+    prd: sls-prd
+  secret: ${file(./config/.secret.yml)}
+  apigwBinary:
+    types:
+      - multipart/form-data
+
+package:
+  exclude:
+    - node_modules/**
+    - public/storage
+    - resources/assets/**
+    - storage/**
+    - tests/**
+
+functions:
+  web:
+    handler: public/index.php
+    timeout: 28
+    layers:
+      - ${bref-extra:gd-php-81}
+      - ${bref:layer.php-81-fpm}
+    events:
+      - http: 'ANY /'
+      - http: 'ANY /{proxy+}'
+    environment:
+      DB_PORT: ${self:custom.secret.DB_PORT}
+      DB_HOST: ${self:custom.secret.DB_HOST}
+      DB_DATABASE: ${self:custom.secret.DB_DATABASE}
+      DB_USERNAME: ${self:custom.secret.DB_USERNAME}
+      DB_PASSWORD: ${self:custom.secret.DB_PASSWORD}
+      MYSQL_ATTR_SSL_CA: ${self:custom.secret.MYSQL_ATTR_SSL_CA}
+      LOG_CHANNEL: stderr
+      VIEW_COMPILED_PATH: /tmp/storage/framework/views
+      ASSET_URL: https://mailbox-yappi.s3.ap-northeast-1.amazonaws.com
+
+  artisan:
+    handler: artisan
+    timeout: 120
+    layers:
+      - ${bref:layer.php-81-fpm}
+      - ${bref-extra:gd-php-81}
+      - ${bref:layer.console}
+    environment:
+      DB_PORT: ${self:custom.secret.DB_PORT}
+      DB_HOST: ${self:custom.secret.DB_HOST}
+      DB_DATABASE: ${self:custom.secret.DB_DATABASE}
+      DB_USERNAME: ${self:custom.secret.DB_USERNAME}
+      DB_PASSWORD: ${self:custom.secret.DB_PASSWORD}
+      MYSQL_ATTR_SSL_CA: ${self:custom.secret.MYSQL_ATTR_SSL_CA}
+      LOG_CHANNEL: stderr
+      VIEW_COMPILED_PATH: /tmp/storage/framework/views
+      ASSET_URL: https://mailbox-yappi.s3.ap-northeast-1.amazonaws.com/
+
+plugins:
+  - ./vendor/bref/bref
+  - ./vendor/bref/extra-php-extensions
