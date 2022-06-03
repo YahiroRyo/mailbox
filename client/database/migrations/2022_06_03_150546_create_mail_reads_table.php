@@ -8,8 +8,8 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('mail_reads', function (Blueprint $table) {
-            $table->foreignId('mail_id')->primary();
+        Schema::create('mail_read', function (Blueprint $table) {
+            $table->char('mail_id', 26)->primary();
 
             $table->timestamp('created_at')->useCurrent();
 
@@ -19,6 +19,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('mail_reads');
+        Schema::dropIfExists('mail_read');
     }
 };

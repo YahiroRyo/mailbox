@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('mail_actives', function (Blueprint $table) {
-            $table->foreignId('mail_id')->primary();
+            $table->char('mail_id', 26)->primary();
 
             $table->timestamp('created_at')->useCurrent();
 
