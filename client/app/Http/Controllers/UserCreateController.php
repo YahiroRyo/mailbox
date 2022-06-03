@@ -16,7 +16,7 @@ class UserCreateController extends Controller
     {
         return view('users.create');
     }
-    public function create(UserCreateRequest $request)
+    public function user_create(UserCreateRequest $request)
     {
         $validated = $request->validated();
         $this->user_service->user_create($validated['email'], $validated['password']);
