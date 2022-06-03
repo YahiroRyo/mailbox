@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserCreateController;
 use App\Http\Controllers\UserLoginController;
 use Illuminate\Support\Facades\Route;
@@ -18,10 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/users')->group(function() {
     Route::prefix('/create')->group(function() {
         Route::get('/', [UserCreateController::class, 'view']);
-        Route::post('/', [UserCreateController::class, 'create']);
+        Route::post('/', [UserCreateController::class, 'user_create']);
     });
     Route::prefix('/login')->group(function() {
         Route::get('/', [UserLoginController::class, 'view']);
-        Route::post('/', [UserLoginController::class, 'login']);
+        Route::post('/', [UserLoginController::class, 'user_login']);
+    });
+    Route::prefix('/mails')->group(function() {
+        Route::post('/', [MailController::class, 'mail_create']);
     });
 });
