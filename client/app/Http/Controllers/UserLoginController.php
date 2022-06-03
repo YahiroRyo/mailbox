@@ -11,7 +11,7 @@ class UserLoginController extends Controller
     {
         return view('users.login');
     }
-    public function login(UserLoginRequest $request)
+    public function user_login(UserLoginRequest $request)
     {
         if (!User::where('email', $request->email)->has('active')->exists()) {
         }
