@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: composer install
-      run: composer install
+      run: composer install -n --prefer-dist
   setup_server:
     runs-on: ubuntu-latest
     defaults:
@@ -27,6 +27,7 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-1
+    - uses: actions/cache@v1
     - name: copy .env
       run: cp .env.example .env
     - name: generate key
