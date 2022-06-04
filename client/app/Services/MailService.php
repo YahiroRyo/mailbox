@@ -7,6 +7,7 @@ use App\Models\MailActive;
 use App\Models\MailContent;
 use App\Models\MailProfile;
 use App\Models\ReceiveUser;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class MailService
@@ -40,7 +41,7 @@ class MailService
             MailProfile::create([
                 'receive_user_id' => $recive_user->receive_user_id,
                 'mail_text_url' => $mail_text_url,
-                'mail_created_at' => $mail_created_at,
+                'mail_created_at' => new Carbon($mail_created_at),
             ]);
         });
     }
