@@ -28,12 +28,13 @@ jobs:
       run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
     - name: deploy public files
       run: aws s3 cp public s3://mailbox-yappi/  --recursive
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: client
-  #   steps:
-  #   - name: deploy programs
-  #     uses: serverless/github-action@master
-  #     run: serverless deploy --stage prod
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+    - uses: actions/checkout@v2
+    - uses: serverless/github-action@master
+    - name: deploy programs
+      run: serverless deploy --stage prod
