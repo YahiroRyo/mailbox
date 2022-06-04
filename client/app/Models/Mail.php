@@ -40,7 +40,7 @@ class Mail extends Model
     public static function find_all()
     {
         return Mail::where('user_id', auth()->id())
-            ->sort('mail_id', 'desc')
+            ->orderBy('mail_id', 'desc')
             ->has('active')
             ->get();
     }
