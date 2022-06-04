@@ -14,7 +14,11 @@ class MailCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'exists:users'],
+            'mail_text_url' => ['required', 'url'],
+            'mail_created_at' => ['required'],
+            'cc' => ['nullable'],
+            'from_email' => ['required'],
+            'to_email' => ['required', 'exists:users'],
             'subject' => ['max:256'],
             'body' => ['max:384000'],
         ];
