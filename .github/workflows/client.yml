@@ -11,13 +11,35 @@ jobs:
       run:
         working-directory: client
     steps:
-    - name: cache vendor
-      id: cache
-      uses: actions/cache@v1
-      with:
-        path: ./vendor
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-composer-
+    - uses: actions/checkout@v2
     - name: composer install
       run: composer install
+  # setup_server:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: client
+  #   steps:
+  #   - name: configure aws
+  #     uses: aws-actions/configure-aws-credentials@v1
+  #     with:
+  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #       aws-region: ap-northeast-1
+  #   - name: copy .env
+  #     run: cp .env.example .env
+  #   - name: generate key
+  #     run: php artisan key:generate
+  #   - name: copy secret.yml
+  #     run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
+  #   - name: deploy public files
+  #     run: aws s3 async "public/**" s3://mailbox-yappi/ --include "*" --acl public-read --cache-control "max-age=3600" --profile=PROFILE_NAME
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: client
+  #   steps:
+  #   - name: deploy programs
+  #     uses: serverless/github-action@master
+  #     run: serverless deploy --stage prod
