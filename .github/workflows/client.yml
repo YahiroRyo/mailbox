@@ -9,9 +9,10 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/cache@v1
+    - uses: actions/checkout@v2
     - name: cache vendor
       id: cache
+      uses: actions/cache@v1
       with:
         path: ./vendor
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
