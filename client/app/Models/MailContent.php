@@ -16,7 +16,4 @@ class MailContent extends Model
         'subject',
         'body',
     ];
-    protected $hidden = [
-        'created_at'
-    ];
 }
