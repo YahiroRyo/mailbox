@@ -17,12 +17,13 @@ class MailService
         string $subject,
         string $body,
         ?string $cc,
+        string $name,
         string $from_email,
         string $mail_text_url,
         string $mail_created_at,
     )
     {
-        DB::transaction(function() use ($user_id, $subject, $body, $cc, $from_email, $mail_text_url, $mail_created_at) {
+        DB::transaction(function() use ($user_id, $subject, $body, $cc, $from_email, $name, $mail_text_url, $mail_created_at) {
             $mail = Mail::create([
                 'user_id' => $user_id,
             ]);
@@ -37,6 +38,8 @@ class MailService
             ]);
             $recive_user = ReceiveUser::updateOrCreate([
                 'email' => $from_email,
+            ], [
+                'name' => $name,
             ]);
             MailProfile::create([
                 'mail_id' => $mail->mail_id,

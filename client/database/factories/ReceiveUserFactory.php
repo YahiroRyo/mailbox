@@ -10,6 +10,7 @@ class ReceiveUserFactory extends Factory
     {
         return [
             'email' => $this->faker->unique()->safeEmail(),
+            'name' => $this->faker->name()
         ];
     }
 }
