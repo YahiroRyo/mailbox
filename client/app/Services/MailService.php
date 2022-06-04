@@ -39,6 +39,7 @@ class MailService
                 'email' => $from_email,
             ]);
             MailProfile::create([
+                'mail_id' => $mail->mail_id,
                 'receive_user_id' => $recive_user->receive_user_id,
                 'mail_text_url' => $mail_text_url,
                 'mail_created_at' => new Carbon($mail_created_at),
