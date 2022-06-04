@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Mail;
 use App\Models\MailActive;
 use App\Models\MailContent;
+use App\Models\MailProfile;
 use Illuminate\Database\Seeder;
 
 class MailSeeder extends Seeder
@@ -21,6 +22,10 @@ class MailSeeder extends Seeder
                 MailActive::create([
                     'mail_id' => $mail->mail_id
                 ]);
+                MailProfile::factory(1)
+                        ->create([
+                            'mail_id' => $mail->mail_id
+                        ]);
             });
     }
 }
