@@ -39,3 +39,4 @@ jobs:
     - uses: serverless/github-action@master
     - name: deploy programs
       run: serverless deploy --stage prod
+      
