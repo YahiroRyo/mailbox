@@ -28,9 +28,9 @@ jobs:
     - name: config cache delete
       run: php artisan config:clear
     - name: generate key
-      run: php artisan key:generate
+      run: echo APP_KEY:`php artisan key:generate --show` > config/appkey.yml
     - name: copy secret.yml
-      run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
+      run: aws s3 cp s3://secret-mailbox-yappi/secret.yml config/
     - name: deploy public files
       run: aws s3 cp public s3://mailbox-yappi/  --recursive
     - name: install sls
