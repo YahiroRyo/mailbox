@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MailContent extends Model
+class ReceiveUser extends Model
 {
     use HasFactory;
 
     public const UPDATED_AT = null;
-    protected $primaryKey = 'mail_id';
+    protected $primaryKey = 'receive_user_id';
     protected $fillable = [
-        'mail_id',
-        'subject',
-        'body',
-        'cc'
+        'email',
+    ];
+    protected $hidden = [
+        'created_at'
     ];
 }

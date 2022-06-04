@@ -24,13 +24,17 @@ class Mail extends Model
     {
         return $this->hasOne(MailContent::class, 'mail_id', 'mail_id');
     }
+    public function profile()
+    {
+        return $this->hasOne(MailProfile::class, 'mail_id', 'mail_id');
+    }
     public function active()
     {
         return $this->hasOne(MailActive::class, 'mail_id', 'mail_id');
     }
-    public function read()
+    public function readed()
     {
-        return $this->hasOne(MailRead::class, 'mail_id', 'mail_id');
+        return $this->hasOne(MailReaded::class, 'mail_id', 'mail_id');
     }
 
     public static function find_all()
@@ -45,7 +49,7 @@ class Mail extends Model
             $mail = Mail::where('user_id', auth()->id())
                         ->has('active')
                         ->find($mail_id);
-            MailRead::updateOrCreate([
+            MailReaded::updateOrCreate([
                 'mail_id' => $mail_id
             ]);
             return $mail;

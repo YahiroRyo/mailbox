@@ -11,6 +11,7 @@ class MailContentFactory extends Factory
         return [
             'subject' => $this->faker->realText(100),
             'body' => $this->faker->realText(1000),
+            'cc' => $this->faker->safeEmail(),
         ];
     }
 }

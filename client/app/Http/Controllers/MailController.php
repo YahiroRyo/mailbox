@@ -24,7 +24,11 @@ class MailController extends Controller
         $this->mail_service->mail_create(
             $user->user_id,
             $validated['subject'],
-            $validated['body']
+            $validated['body'],
+            $validated['cc'],
+            $validated['from_email'],
+            $validated['mail_text_url'],
+            $validated['mail_created_at'],
         );
     }
     public function find_all()
