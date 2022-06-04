@@ -13,6 +13,7 @@ class ReceiveUser extends Model
     protected $primaryKey = 'receive_user_id';
     protected $fillable = [
         'email',
+        'name'
     ];
     protected $hidden = [
         'created_at'

@@ -16,6 +16,7 @@ class MailCreateRequest extends FormRequest
         return [
             'mail_text_url' => ['required', 'url'],
             'mail_created_at' => ['required'],
+            'name' => ['nullable'],
             'cc' => ['nullable'],
             'from_email' => ['required'],
             'to_email' => ['required', 'exists:users,email'],

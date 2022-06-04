@@ -10,7 +10,8 @@
             <span class="text-gray-900 text-base">{{\Carbon\Carbon::parse($mail['profile']['receive_user']['mail_created_at'])->format('Y年m月d日H時m分')}}</span>
         </div>
         <h2 class="text-gray-700 font-bold text-2xl mt-5">送信元</h2>
-        <p class="text-gray-700 mt-1">{{$mail['profile']['receive_user']['email']}}</p>
+        <p class="text-gray-700 mt-1">{{$mail['profile']['receive_user']['name']}}</p>
+        <p class="text-gray-700">{{$mail['profile']['receive_user']['email']}}</p>
         <h2 class="text-gray-700 font-bold text-2xl mt-5">件名</h2>
         <p class="text-gray-700 text-base mt-1 sm:text-xl">{{$mail['content']['subject']}}</p>
         <h2 class="text-gray-700 font-bold text-2xl mt-4">本文</h2>
