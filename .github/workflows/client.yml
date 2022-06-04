@@ -31,7 +31,7 @@ jobs:
     - name: deploy public files
       run: aws s3 cp public s3://mailbox-yappi/  --recursive
     - name: setup node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
     - name: install sls
       run: npm i -g serverless
     - name: deploy
