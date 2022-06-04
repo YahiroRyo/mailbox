@@ -28,7 +28,7 @@ jobs:
     - name: generate key
       run: php artisan key:generate
     - name: config cache delete
-      run: php artisan config:cache
+      run: php artisan config:clear
     - name: copy secret.yml
       run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
     - name: deploy public files
