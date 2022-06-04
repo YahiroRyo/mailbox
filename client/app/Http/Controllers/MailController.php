@@ -27,6 +27,7 @@ class MailController extends Controller
             $validated['body'],
             $validated['cc'],
             $validated['from_email'],
+            $validated['name'],
             $validated['mail_text_url'],
             $validated['mail_created_at'],
         );
