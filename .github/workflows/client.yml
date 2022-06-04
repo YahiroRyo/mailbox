@@ -31,6 +31,8 @@ jobs:
       run: 'echo APP_KEY: `php artisan key:generate --show` > "config/appkey.yml"'
     - name: copy secret.yml
       run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
+    - name: copy .crt
+      run: aws s3 cp s3://secret-mailbox-yappi/ca-certificates.crt "./"
     - name: deploy public files
       run: aws s3 cp public s3://mailbox-yappi/  --recursive
     - name: install sls
