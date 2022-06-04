@@ -8,7 +8,6 @@ class UserLoginRequest extends FormRequest
 {
     public function authorize()
     {
-        logs()->info('a');
         return true;
     }
 
