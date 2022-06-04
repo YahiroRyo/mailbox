@@ -4,7 +4,7 @@
 
 @section('main')
 <div class="flex h-screen w-full items-center justify-center bg-sky-50">
-    <form class="bg-white shadow-md rounded p-8 w-2/4" action="/users/login" method="POST">
+    <form class="bg-white shadow-md rounded p-8 w-5/6 sm:w-3/4 md:w-1/2" action="/users/login" method="POST">
         @csrf
         <div class="mb-5">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">メールアドレス</label>
