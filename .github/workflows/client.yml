@@ -11,6 +11,7 @@ jobs:
       run:
         working-directory: client
     steps:
+    - uses: actions/setup-node@v3
     - uses: actions/checkout@v2
       with:
         SLS_INTERACTIVE_SETUP_ENABLE: 1
@@ -30,8 +31,6 @@ jobs:
       run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
     - name: deploy public files
       run: aws s3 cp public s3://mailbox-yappi/  --recursive
-    - name: setup node.js
-      uses: actions/setup-node@v3
     - name: install sls
       run: npm i -g serverless
     - name: deploy
