@@ -15,7 +15,7 @@ class MailService
         int $user_id,
         string $subject,
         string $body,
-        string $cc,
+        ?string $cc,
         string $from_email,
         string $mail_text_url,
         string $mail_created_at,
