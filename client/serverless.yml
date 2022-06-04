@@ -1,3 +1,4 @@
+useDotenv: true
 service: mailbox-client
 
 provider:
@@ -15,7 +16,7 @@ custom:
     dev: sls-itg
     stg: sls-stg
     prd: sls-prd
-  secret: ${file(./config/.secret.yml)}
+  secret: ${file(./config/secret.yml)}
   apigwBinary:
     types:
       - multipart/form-data
