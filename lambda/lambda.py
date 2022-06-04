@@ -56,7 +56,7 @@ def lambda_handler(event, context):
         "mail_text_url": "https://example.com",
         "mail_created_at": email_created_at,
         "cc": "",
-        "from_email": email_from[0:email_from.find('<')],
+        "name": email_from[0:email_from.find('<')],
         "to_email": email_to,
         "from_email": email_from[email_from.find('<')+1:email_from.find('>')],
         "subject": email_subject,
