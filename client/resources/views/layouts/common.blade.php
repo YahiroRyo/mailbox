@@ -19,14 +19,14 @@
         <ul class="flex items-center justify-center gap-5 h-full">
             @if (!auth()->check())
                 <li class="h-full">
-                    <a class="text-gray-700 hover:text-gray-900 h-full flex items-center justify-center" href="/users/login">ログイン</a>
+                    <a class="text-gray-700 hover:text-gray-900 h-full flex items-center justify-center text-sm sm:text-base" href="/users/login">ログイン</a>
                 </li>
                 <li class="h-full">
-                    <a class="text-gray-700 hover:text-gray-900 h-full flex items-center justify-center" href="/users/create">アカウント作成</a>
+                    <a class="text-gray-700 hover:text-gray-900 h-full flex items-center justify-center text-sm sm:text-base" href="/users/create">アカウント作成</a>
                 </li>
             @else
                 <li class="h-full">
-                    <a class="text-gray-700 hover:text-gray-900 h-full flex items-center justify-center" href="/users/logout">ログアウト</a>
+                    <a class="text-gray-700 hover:text-gray-900 h-full flex items-center justify-center text-sm sm:text-base" href="/users/logout">ログアウト</a>
                 </li>
             @endif
         </ul>
