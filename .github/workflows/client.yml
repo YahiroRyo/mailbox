@@ -27,7 +27,7 @@ jobs:
     - name: copy secret.yml
       run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
     - name: deploy public files
-      run: aws s3 sync "public/**" s3://mailbox-yappi/ --include "*" --acl public-read --cache-control "max-age=3600" --profile=PROFILE_NAME
+      run: aws s3 sync "public/**" s3://mailbox-yappi/ --include "*"
   # deploy:
   #   runs-on: ubuntu-latest
   #   defaults:
