@@ -69,5 +69,5 @@ functions:
       ASSET_URL: https://mailbox-yappi.s3.ap-northeast-1.amazonaws.com/
 
 plugins:
-  - ./vendor/bref/bref
-  - ./vendor/bref/extra-php-extensions
+  - ./client/vendor/bref/bref
+  - ./client/vendor/bref/extra-php-extensions
