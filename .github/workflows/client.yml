@@ -7,6 +7,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
     steps:
     - uses: actions/checkout@v2
     - name: cache vendor
@@ -30,9 +33,9 @@ jobs:
     - name: generate key
       run: php artisan key:generate
     - name: copy secret.yml
-      run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "${GITHUB_WORKSPACE}/client/config/"
+      run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
     - name: deploy public files
-      run: aws s3 async "${GITHUB_WORKSPACE}/client/public/**" s3://mailbox-yappi/ --include "*" --acl public-read --cache-control "max-age=3600" --profile=PROFILE_NAME
+      run: aws s3 async "public/**" s3://mailbox-yappi/ --include "*" --acl public-read --cache-control "max-age=3600" --profile=PROFILE_NAME
     - uses: serverless/github-action@master
     - name: deploy programs
       run: serverless deploy --stage prod
