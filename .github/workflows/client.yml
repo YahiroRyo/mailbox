@@ -11,10 +11,9 @@ jobs:
       run:
         working-directory: client
     steps:
-    - uses: actions/checkout@v2
     - name: cache vendor
       id: cache
-      uses: actions/cache@v1
+      uses: actions/checkout@v2
       with:
         path: ./vendor
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -28,8 +27,8 @@ jobs:
       run:
         working-directory: client
     steps:
-    - uses: aws-actions/configure-aws-credentials@v1
     - name: configure aws
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -48,6 +47,6 @@ jobs:
       run:
         working-directory: client
     steps:
-    - uses: serverless/github-action@master
     - name: deploy programs
+      uses: serverless/github-action@master
       run: serverless deploy --stage prod
