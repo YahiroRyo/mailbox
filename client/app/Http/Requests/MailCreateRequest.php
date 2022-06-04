@@ -18,7 +18,7 @@ class MailCreateRequest extends FormRequest
             'mail_created_at' => ['required'],
             'cc' => ['nullable'],
             'from_email' => ['required'],
-            'to_email' => ['required', 'exists:users'],
+            'to_email' => ['required', 'exists:users,email'],
             'subject' => ['max:256'],
             'body' => ['max:384000'],
         ];
