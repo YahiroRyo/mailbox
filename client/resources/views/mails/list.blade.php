@@ -8,10 +8,10 @@
         <li>
             <a
                 href="/users/mails/mail?mail_id={{ $mail['mail_id'] }}"
-                class="flex align-center gap-10 p-5 border-gray-200 border-2 bg-white hover:bg-gray-200 {{ $mail['read'] ? 'bg-gray-200' : '' }}"
+                class="block align-center px-2 py-5 border-gray-300 border-y-2 bg-white hover:bg-gray-200 sm:p-5 sm:gap-10 sm:flex {{ $mail['read'] ? 'bg-gray-200 hover:bg-gray-300' : '' }}"
             >
-                <span class="font-bold text-gray-700">{{$mail['content']['created_at']}}</span>
-                <p class="font-bold text-gray-700">{{$mail['content']['subject']}}</p>
+                <span class="font-bold text-gray-700">{{\Carbon\Carbon::parse($mail['content']['created_at'])->format('Y年m月d日H時m分')}}</span>
+                <p class="font-bold text-gray-700 mt-1 sm:mt-0">{{$mail['content']['subject']}}</p>
             </a>
         </li>
     @endforeach
