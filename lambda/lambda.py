@@ -3,6 +3,10 @@ from decimal import Decimal
 import email
 from email.header import decode_header
 import requests
+import boto3
+
+BUCKET_NAME='yappi-mails'
+s3 = boto3.resource('s3')
 
 def get_email_body(email_messages):
     for email_message in email_messages.get_payload(decode=False):
@@ -39,14 +43,22 @@ def lambda_handler(event, context):
 
     # 送信元アドレス
     email_from = get_email_header(email_message, 'From')
+    # 送信時間
+    email_created_at = get_email_header(email_message, 'Date')
     # 送信先アドレス
     email_to = get_email_header(email_message, 'To')
     # 件名
     email_subject = get_email_header(email_message, 'Subject')
     # 本文
     email_body = get_email_body(email_message)
-    requests.post('https://mailbox.yappi.jp/api/mails', data={
-        "email": email_to,
+    
+    response = requests.post('https://mailbox.yappi.jp/api/mails', data={
+        "mail_text_url": "https://example.com",
+        "mail_created_at": email_created_at,
+        "cc": "",
+        "to_email": email_to,
+        "from_email": email_from[email_from.find('<')+1:email_from.find('>')],
         "subject": email_subject,
         "body": email_body
     })
+    print(response)
