@@ -12,7 +12,6 @@ jobs:
         working-directory: client
     steps:
     - uses: actions/checkout@v2
-    - uses: serverless/github-action@master
       with:
         SLS_INTERACTIVE_SETUP_ENABLE: 1
     - name: configure aws
@@ -31,5 +30,10 @@ jobs:
       run: aws s3 cp s3://secret-mailbox-yappi/secret.yml "config/"
     - name: deploy public files
       run: aws s3 cp public s3://mailbox-yappi/  --recursive
-    - name: deploy programs
-      run: serverless deploy --stage prod
+    - name: deploy
+      uses: serverless/github-action@master
+      with:
+        args: deploy --verbose --stage prod
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
