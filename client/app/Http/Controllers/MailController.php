@@ -18,7 +18,7 @@ class MailController extends Controller
     public function mail_create(MailCreateRequest $request)
     {
         $validated = $request->validated();
-        $user = User::where('email', $validated['email'])
+        $user = User::where('email', $validated['to_email'])
                     ->has('active')
                     ->firstOrFail();
         $this->mail_service->mail_create(
