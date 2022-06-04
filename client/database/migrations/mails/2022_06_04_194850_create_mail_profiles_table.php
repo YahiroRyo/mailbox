@@ -8,18 +8,18 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('mail_contents', function (Blueprint $table) {
+        Schema::create('mail_profiles', function (Blueprint $table) {
             $table->char('mail_id', 26)->primary();
 
-            $table->string('subject', 256);
-            $table->text('body', 384000);
-            $table->string('cc')->nullable();
+            $table->foreignId('receive_user_id');
+            $table->string('mail_text_url', 256);
+            $table->timestamp('mail_created_at');
             $table->timestamp('created_at')->useCurrent();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('mail_contents');
+        Schema::dropIfExists('mail_profiles');
     }
 };

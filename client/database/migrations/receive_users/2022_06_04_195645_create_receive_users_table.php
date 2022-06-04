@@ -8,15 +8,16 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('mail_read', function (Blueprint $table) {
-            $table->char('mail_id', 26)->primary();
+        Schema::create('receive_users', function (Blueprint $table) {
+            $table->id('receive_user_id');
 
+            $table->string('email')->unique();
             $table->timestamp('created_at')->useCurrent();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('mail_read');
+        Schema::dropIfExists('receive_users');
     }
 };
