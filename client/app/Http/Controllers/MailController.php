@@ -7,6 +7,7 @@ use App\Http\Requests\MailFindOneRequest;
 use App\Models\Mail;
 use App\Models\User;
 use App\Services\MailService;
+use Illuminate\Http\Request;
 
 class MailController extends Controller
 {
@@ -43,5 +44,10 @@ class MailController extends Controller
         return view('mails.mail', [
             'mail' => Mail::find_one($request->mail_id)
         ]);
+    }
+    public function mail_delete(Request $request, string $mail_id)
+    {
+        $this->mail_service->mail_delete($mail_id);
+        return redirect('/users/mails');
     }
 }

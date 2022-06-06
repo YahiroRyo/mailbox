@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Mail;
 use App\Models\MailActive;
 use App\Models\MailContent;
+use App\Models\MailDelete;
 use App\Models\MailProfile;
 use App\Models\ReceiveUser;
 use Carbon\Carbon;
@@ -47,6 +48,18 @@ class MailService
                 'mail_text_url' => $mail_text_url,
                 'mail_created_at' => new Carbon($mail_created_at),
             ]);
+        });
+    }
+
+    public function mail_delete(string $mail_id)
+    {
+        DB::transaction(function () use ($mail_id) {
+            Mail::where('user_id', auth()->id())
+                ->findOrFail($mail_id);
+            MailActive::destroy($mail_id);
+            MailDelete::updateOrCreate([
+                'mail_id' => $mail_id
+            ], []);
         });
     }
 }

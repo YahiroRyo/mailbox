@@ -32,5 +32,6 @@ Route::prefix('/users')->group(function() {
     Route::prefix('/mails')->group(function() {
         Route::get('/mail', [MailController::class, 'find_one']);
         Route::get('/', [MailController::class, 'find_all']);
+        Route::delete('/{mail_id}', [MailController::class, 'mail_delete']);
     });
 });
