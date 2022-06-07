@@ -31,11 +31,12 @@ class MailController extends Controller
             $validated['from_email'],
             $validated['mail_text_url'],
             $validated['mail_created_at'],
+            false
         );
     }
     public function find_all()
     {
-        return view('mails.list', [
+        return view('mails.received_list', [
             'mails' => Mail::find_all()
         ]);
     }

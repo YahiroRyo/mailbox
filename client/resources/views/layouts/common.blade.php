@@ -31,8 +31,24 @@
             @endif
         </ul>
     </header>
-    <main class="pt-20">
-        @yield('main')
+    <main class="flex gap-5 justify-between pt-20 relative">
+        @if (auth()->check())
+            <aside class="w-1/5 sticky top-20 left-0 h-screen">
+                <nav>
+                    <ul>
+                        <li>
+                            <a class="block border-b-gray-200  border-b-2 p-5 hover:text-blue-700 {{ request()->path() == 'users/mails' ? 'text-blue-700' : 'text-gray-700'}}"  href="/users/mails">受信メール一覧</a>
+                        </li>
+                        <li>
+                            <a class="block border-b-gray-200  border-b-2 p-5 hover:text-blue-700 {{ request()->path() == 'users/mails/send' ? 'text-blue-700' : 'text-gray-700'}}" href="/users/mails/send">メールを送信</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        @endif
+        <div class="{{ auth()->check() ? 'w-4/5' : 'w-full'}}">
+            @yield('main')
+        </div>
     </main>
 </body>
 </html>

@@ -7,6 +7,7 @@ use App\Models\MailActive;
 use App\Models\MailContent;
 use App\Models\MailDelete;
 use App\Models\MailProfile;
+use App\Models\MailSend;
 use App\Models\ReceiveUser;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -22,9 +23,10 @@ class MailService
         string $from_email,
         string $mail_text_url,
         string $mail_created_at,
+        bool $is_send
     )
     {
-        DB::transaction(function() use ($user_id, $subject, $body, $cc, $from_email, $name, $mail_text_url, $mail_created_at) {
+        DB::transaction(function() use ($user_id, $subject, $body, $cc, $from_email, $name, $mail_text_url, $mail_created_at, $is_send) {
             $mail = Mail::create([
                 'user_id' => $user_id,
             ]);
@@ -37,6 +39,11 @@ class MailService
             MailActive::create([
                 'mail_id' => $mail->mail_id,
             ]);
+            if ($is_send) {
+                MailSend::create([
+                    'mail_id' => $mail->mail_id,
+                ]);
+            }
             $recive_user = ReceiveUser::updateOrCreate([
                 'email' => $from_email,
             ], [

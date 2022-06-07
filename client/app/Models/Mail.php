@@ -36,11 +36,16 @@ class Mail extends Model
     {
         return $this->hasOne(MailReaded::class, 'mail_id', 'mail_id');
     }
+    public function send()
+    {
+        return $this->hasOne(MailSend::class, 'mail_id', 'mail_id');
+    }
 
     public static function find_all()
     {
         return Mail::where('user_id', auth()->id())
             ->orderBy('mail_id', 'desc')
+            ->doesntHave('send')
             ->has('active')
             ->get();
     }
