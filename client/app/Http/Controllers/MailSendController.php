@@ -65,6 +65,8 @@ class MailSendController extends Controller
                 true
             );
         } catch (SesException $e) {
+            logs()->error($e->getMessage());
+			logs()->error('REQUEST', $request->toArray());
             return view('mails.send', [
                 'error_message' => '不明なエラーが発生しました。<br/>フォームの内容をもう一度確認の上送信ください。'
             ]);
