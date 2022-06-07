@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from decimal import Decimal
 import email
@@ -36,6 +37,7 @@ def decimal_to_int(obj):
 
 def lambda_handler(event, context):
     SES_message = event['Records'][0]['Sns']['Message']
+    
     SES_message_json = json.loads(SES_message)
     SES_message_content = SES_message_json['content']
 
@@ -49,11 +51,16 @@ def lambda_handler(event, context):
     email_to = get_email_header(email_message, 'To')
     # 件名
     email_subject = get_email_header(email_message, 'Subject')
+
+    key = email_from[email_from.find('<')+1:email_from.find('>')] + '/' + datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+    obj = s3.Object(BUCKET_NAME, key)
+    obj.put(Body=SES_message)
+    
     # 本文
     email_body = get_email_body(email_message)
-    
-    response = requests.post('https://mailbox.yappi.jp/api/mails', data={
-        "mail_text_url": "https://example.com",
+
+    requests.post('https://mailbox.yappi.jp/api/mails', data={
+        "mail_text_url": 'https://'+BUCKET_NAME+'.s3.amazonaws.com/'+key,
         "mail_created_at": email_created_at,
         "cc": "",
         "name": email_from[0:email_from.find('<')],
@@ -62,4 +69,3 @@ def lambda_handler(event, context):
         "subject": email_subject,
         "body": email_body
     })
-    print(response)
