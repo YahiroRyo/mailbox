@@ -13,8 +13,14 @@ s3 = boto3.resource('s3')
 def get_email_body(email_messages):
     if email_messages.is_multipart():
         for payload in email_messages.get_payload():
-            return payload.get_payload()
-    return email_messages.get_payload()
+            return payload.get_payload(decode=True)
+    charset = email_messages.get_content_charset()
+    contentType = email_messages.get_content_type()
+    payload = email_messages.get_payload(decode=True)
+    if email_messages and charset and contentType == "text/plain":
+        return payload.decode(charset, errors="ignore") + "\n\n"
+
+    return payload
 
 def get_email_header(email_message, name):
     header = ''
@@ -57,7 +63,10 @@ def lambda_handler(event, context):
     
     # 本文
     email_body = get_email_body(email_message)
-    email_body = quopri.decodestring(email_body).decode('utf-8')
+    try:
+        email_body = quopri.decodestring(email_body).decode('utf-8')
+    except:
+        pass
 
     response = requests.post('https://mailbox.yappi.jp/api/mails', data={
         "mail_text_url": 'https://'+BUCKET_NAME+'.s3.amazonaws.com/'+key,
