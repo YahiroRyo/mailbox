@@ -6,7 +6,6 @@
     <script>
         const autoSize = () => {
             const contents = document.querySelector('#contents');
-            contents.style.width = contents.contentWindow.document.body.scrollWidth + "px";
             contents.style.height = contents.contentWindow.document.body.scrollHeight + "px";
         }
     </script>
@@ -23,7 +22,7 @@
         <p class="text-gray-700 text-base mt-1 sm:text-xl">{{$mail['content']['subject']}}</p>
         <h2 class="text-gray-700 font-bold text-2xl mt-4">本文</h2>
         <p class="mt-1 text-base whitespace-pre-wrap sm:text-xl">
-            <iframe id="contents" onload="autoSize()" srcdoc="{{ $mail['content']['body'] }}"></iframe>
+            <iframe class="w-full" id="contents" onload="autoSize()" srcdoc="{{ $mail['content']['body'] }}"></iframe>
         </p>
     </div>
 @endsection
