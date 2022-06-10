@@ -4,18 +4,17 @@ from decimal import Decimal
 import email
 from email.header import decode_header
 import requests
+import quopri
 import boto3
 
 BUCKET_NAME='yappi-mails'
 s3 = boto3.resource('s3')
 
 def get_email_body(email_messages):
-    for email_message in email_messages.get_payload(decode=False):
-        charset = email_message.get_content_charset()
-        contentType = email_message.get_content_type()
-        payload = email_message.get_payload(decode=True)
-        if email_message and charset and contentType == "text/plain":
-            return payload.decode(charset, errors="ignore") + "\n\n"
+    if email_messages.is_multipart():
+        for payload in email_messages.get_payload():
+            return payload.get_payload()
+    return email_messages.get_payload()
 
 def get_email_header(email_message, name):
     header = ''
@@ -58,8 +57,9 @@ def lambda_handler(event, context):
     
     # 本文
     email_body = get_email_body(email_message)
+    email_body = quopri.decodestring(email_body).decode('utf-8')
 
-    requests.post('https://mailbox.yappi.jp/api/mails', data={
+    response = requests.post('https://mailbox.yappi.jp/api/mails', data={
         "mail_text_url": 'https://'+BUCKET_NAME+'.s3.amazonaws.com/'+key,
         "mail_created_at": email_created_at,
         "cc": "",
@@ -69,3 +69,4 @@ def lambda_handler(event, context):
         "subject": email_subject,
         "body": email_body
     })
+    print(response)
