@@ -16,7 +16,7 @@
         <p class="text-gray-700 text-base mt-1 sm:text-xl">{{$mail['content']['subject']}}</p>
         <h2 class="text-gray-700 font-bold text-2xl mt-4">本文</h2>
         <p class="mt-1 text-base whitespace-pre-wrap sm:text-xl">
-            <iframe srcdoc="{!! $mail['content']['body'] !!}"></iframe>
+            <iframe srcdoc="{{ $mail['content']['body'] }}"></iframe>
         </p>
     </div>
 @endsection
