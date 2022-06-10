@@ -11,6 +11,20 @@ class MailCreateRequest extends FormRequest
         return true;
     }
 
+    public function validationData()
+    {
+        $validation_data = parent::validationData();
+        $email = $validation_data['email'];
+        if (!strpos($email, '<')) return $validation_data;
+
+        $validation_data['email'] = mb_substr(
+            $email,
+            mb_strpos($email, '<') + 1,
+            mb_strpos($email, '>') - mb_strpos($email, '<') - 1
+        );
+        return $validation_data;
+    }
+
     public function rules()
     {
         return [
