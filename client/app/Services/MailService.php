@@ -8,12 +8,33 @@ use App\Models\Mail\Eloquent\MailActive;
 use App\Models\Mail\Eloquent\MailContent;
 use App\Models\Mail\Eloquent\MailDelete;
 use App\Models\Mail\Eloquent\MailProfile;
+use App\Models\Mail\Eloquent\MailReaded;
 use App\Models\Mail\Eloquent\MailSend;
 use App\Models\ReceiveUser\Eloquent\ReceiveUser;
 use Illuminate\Support\Facades\DB;
 
 class MailService
 {
+    public function find_all()
+    {
+        return Mail::where('user_id', auth()->id())
+            ->orderBy('mail_id', 'desc')
+            ->doesntHave('send')
+            ->has('active')
+            ->get();
+    }
+    public function find_one(string $mail_id)
+    {
+        return DB::transaction(function () use ($mail_id) {
+            $mail = Mail::where('user_id', auth()->id())
+                        ->has('active')
+                        ->find($mail_id);
+            MailReaded::updateOrCreate([
+                'mail_id' => $mail_id
+            ]);
+            return $mail;
+        });
+    }
     public function receive_mail_create(DomainMail $domain_mail)
     {
         DB::transaction(function() use ($domain_mail) {

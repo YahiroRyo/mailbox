@@ -39,13 +39,13 @@ class MailController extends Controller
     public function find_all()
     {
         return view('mails.received_list', [
-            'mails' => Mail::find_all()
+            'mails' => $this->mail_service->find_all()
         ]);
     }
     public function find_one(MailFindOneRequest $request)
     {
         return view('mails.mail', [
-            'mail' => Mail::find_one($request->mail_id)
+            'mail' => $this->mail_service->find_one($request->mail_id)
         ]);
     }
     public function mail_delete(Request $request, string $mail_id)
