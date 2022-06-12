@@ -58,7 +58,7 @@ class Mail {
     public function get_mail_content(): array
     {
         return [
-            'mail_id' => $this->mail->mail_id,
+            'mail_id' => $this->eloquent_mail->mail_id,
             'subject' => $this->subject,
             'cc' => $this->cc,
             'body' => $this->body
