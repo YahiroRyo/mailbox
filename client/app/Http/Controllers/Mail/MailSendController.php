@@ -73,7 +73,7 @@ class MailSendController extends Controller
                 'error_message' => '不明なエラーが発生しました。<br/>フォームの内容をもう一度確認の上送信ください。'
             ]);
         }
-        return redirect('/users/mails');
+        return redirect('/users/send');
     }
 
     public function find_all()
