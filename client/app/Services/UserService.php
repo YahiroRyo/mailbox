@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\User;
-use App\Models\UserActive;
+use App\Models\User\Eloquent\User;
+use App\Models\User\Eloquent\UserActive;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
