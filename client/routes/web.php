@@ -1,12 +1,11 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\MailSendController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserCreateController;
-use App\Http\Controllers\UserLoginController;
-use App\Models\MailContent;
+use App\Http\Controllers\Mail\MailController;
+use App\Http\Controllers\Mail\MailSendController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\UserCreateController;
+use App\Http\Controllers\User\UserLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*

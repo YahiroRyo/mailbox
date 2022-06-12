@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\Mail\MailSeeder;
+use Database\Seeders\ReceiveUser\ReceiveUserSeeder;
+use Database\Seeders\User\UserSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
