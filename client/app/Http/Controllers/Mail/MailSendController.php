@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mail;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mail\MailSendRequest;
+use App\Http\Requests\Mail\MailFindOneRequest;
 use App\Models\Mail\Domain\Mail as DomainMail;
 use App\Services\MailService;
 use Aws\Ses\Exception\SesException;
@@ -17,6 +18,7 @@ class MailSendController extends Controller
     {
         $this->mail_service = new MailService();
     }
+
     public function view()
     {
         return view('mails.send');
@@ -72,5 +74,19 @@ class MailSendController extends Controller
             ]);
         }
         return redirect('/users/mails');
+    }
+
+    public function find_all()
+    {
+        return view('mails.sended_list', [
+            'mails' => $this->mail_service->send_find_all()
+        ]);
+    }
+
+    public function find_one(MailFindOneRequest $request)
+    {
+        return view('mails.mail', [
+            'mail' => $this->mail_service->send_find_one($request->mail_id)
+        ]);
     }
 }

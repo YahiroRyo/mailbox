@@ -3,7 +3,7 @@
 @section('title', 'メールを送信')
 
 @section('main')
-    <form class="w-4/5 mx-auto my-0 pt-10" action="/users/mails/send" method="POST">
+    <form class="w-4/5 mx-auto my-0 pt-10" action="/users/send" method="POST">
         @csrf
         @if (isset($error_message))
             <div class="mb-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">

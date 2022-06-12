@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Mail\MailController;
 use App\Http\Controllers\Mail\MailSendController;
+use App\Http\Controllers\Mail\MailReceiveController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserCreateController;
 use App\Http\Controllers\User\UserLoginController;
@@ -30,13 +30,19 @@ Route::prefix('/users')->group(function() {
         Route::post('/', [UserLoginController::class, 'user_login']);
     });
     Route::get('/logout', [UserController::class, 'user_logout']);
-    Route::prefix('/mails')->group(function() {
-        Route::get('/mail', [MailController::class, 'find_one']);
-        Route::get('/', [MailController::class, 'find_all']);
-        Route::prefix('/send')->group(function() {
-            Route::get('/', [MailSendController::class, 'view']);
-            Route::post('/', [MailSendController::class, 'mail_send']);
+    Route::prefix('/receive')->group(function() {
+        Route::prefix('/mails')->group(function() {
+            Route::get('/mail', [MailReceiveController::class, 'find_one']);
+            Route::get('/', [MailReceiveController::class, 'find_all']);
+            Route::delete('/{mail_id}', [MailReceiveController::class, 'mail_delete']);
         });
-        Route::delete('/{mail_id}', [MailController::class, 'mail_delete']);
+    });
+    Route::prefix('/send')->group(function() {
+        Route::get('/', [MailSendController::class, 'view']);
+        Route::post('/', [MailSendController::class, 'mail_send']);
+        Route::prefix('/mails')->group(function() {
+            Route::get('/mail', [MailSendController::class, 'find_one']);
+            Route::get('/', [MailSendController::class, 'find_all']);
+        });
     });
 });
