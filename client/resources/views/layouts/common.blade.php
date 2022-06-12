@@ -37,10 +37,13 @@
                 <nav>
                     <ul>
                         <li>
-                            <a class="block border-b-gray-200  border-b-2 p-5 hover:text-blue-700 {{ request()->path() == 'users/mails' ? 'text-blue-700' : 'text-gray-700'}}"  href="/users/mails">受信メール一覧</a>
+                            <a class="block border-b-gray-200  border-b-2 p-5 hover:text-blue-700 {{ request()->path() == 'users/receive/mails' ? 'text-blue-700' : 'text-gray-700'}}"  href="/users/receive/mails">受信メール一覧</a>
                         </li>
                         <li>
-                            <a class="block border-b-gray-200  border-b-2 p-5 hover:text-blue-700 {{ request()->path() == 'users/mails/send' ? 'text-blue-700' : 'text-gray-700'}}" href="/users/mails/send">メールを送信</a>
+                            <a class="block border-b-gray-200  border-b-2 p-5 hover:text-blue-700 {{ request()->path() == 'users/send/mails' ? 'text-blue-700' : 'text-gray-700'}}"  href="/users/send/mails">送信済メール一覧</a>
+                        </li>
+                        <li>
+                            <a class="block border-b-gray-200  border-b-2 p-5 hover:text-blue-700 {{ request()->path() == 'users/send' ? 'text-blue-700' : 'text-gray-700'}}" href="/users/send">メールを送信</a>
                         </li>
                     </ul>
                 </nav>
