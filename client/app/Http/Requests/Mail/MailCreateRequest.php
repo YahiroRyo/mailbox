@@ -17,11 +17,7 @@ class MailCreateRequest extends FormRequest
         $to_email = $validation_data['to_email'];
         if (!strpos($to_email, '<')) return $validation_data;
 
-        $validation_data['to_email'] = mb_substr(
-            $to_email,
-            mb_strpos($to_email, '<') + 1,
-            mb_strpos($to_email, '>') - mb_strpos($to_email, '<') - 1
-        );
+        $validation_data['to_email'] = preg_replace("/<|>/", "", $to_email);
         return $validation_data;
     }
 
