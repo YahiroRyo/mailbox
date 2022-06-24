@@ -15,9 +15,13 @@ class MailCreateRequest extends FormRequest
     {
         $validation_data = parent::validationData();
         $to_email = $validation_data['to_email'];
-        if (!strpos($to_email, '<')) return $validation_data;
+        if (mb_strpos($to_email, '<') === false) return $validation_data;
 
-        $validation_data['to_email'] = preg_replace("/<|>/", "", $to_email);
+        $validation_data['to_email'] = mb_substr(
+            $to_email,
+            mb_strpos($to_email, '<') + 1,
+            mb_strpos($to_email, '>') - mb_strpos($to_email, '<') - 1
+        );
         return $validation_data;
     }
 
